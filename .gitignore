@@ -158,3 +158,41 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+### Django ###
+# Локальные настройки
+/local_settings.py
+/settings/local.py
+
+# Базы данных
+*.sqlite3
+*.sqlite3-*
+*.db
+/db/  # Если используете отдельную папку для БД
+
+# Медиа-файлы (загружаемые пользователями)
+/media/
+!/media/.gitkeep  # Сохраняет пустую папку
+
+# Статика (если собираете через collectstatic)
+/staticfiles/
+!/staticfiles/.gitkeep
+
+# Миграции (кроме __init__.py)
+*/migrations/*.py
+!*/migrations/__init__.py
+
+### IDE ###
+# PyCharm/VS Code
+.idea/
+.vscode/
+*.swp
+*.swo
+
+### Логи ###
+*.log
+logs/
+
+### Тесты ###
+.pytest_cache/
+/test_results/

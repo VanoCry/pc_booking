@@ -1,0 +1,9 @@
+<h1>Available PC</h1>
+<ul>
+    {% for pc in pcs %}
+        <li>
+            {{ pc.name }}
+            <a href="{% url 'book_pc' pc.id %}">Book</a>
+        </li>
+    {% endfor %}
+</ul>
