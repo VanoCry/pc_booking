@@ -4,8 +4,9 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class PC(models.Model):
-    name = models.CharField(max_length=100) # Íàïðèìåð, PC-1
-    is_active = models.BooleanField(default=True) # Ðàáîòàåò ëè ÏÊ
+    name = models.CharField(max_length=100) # ÐÐ°Ð¿Ñ€Ð¸Ð¼ÐµÑ€, PC-1
+    is_active = models.BooleanField(default=True) # Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÑ‚ Ð»Ð¸ ÐŸÐš
+    price = models.IntegerField(default=0)
     
     def __str__(self):
         return self.name
@@ -13,8 +14,8 @@ class PC(models.Model):
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     pc = models.ForeignKey(PC, on_delete=models.CASCADE)
-    start_time = models.DateTimeField() # Íà÷àëî áðîíè
-    end_time = models.DateTimeField() # Êîíåö áðîíè
+    start_time = models.DateTimeField() # ÐÐ°Ñ‡Ð°Ð»Ð¾ Ð±Ñ€Ð¾Ð½Ð¸
+    end_time = models.DateTimeField() # ÐšÐ¾Ð½ÐµÑ† Ð±Ñ€Ð¾Ð½Ð¸
 
     def __str__(self):
         return f"{self.user.username} -> {self.pc.name} ({self.start_time})"

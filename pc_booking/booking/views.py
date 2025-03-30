@@ -5,11 +5,13 @@ from .models import PC
 
 
 def pc_list(request):
-    pcs = PC.objects.filter(is_active=True)  # Важно: объекты PC должны существовать в БД
+    print("Р—Р°РїСѓСЃС‚РёР»Р°СЃСЊ pc_list")
+    pcs = PC.objects.filter(is_active=True)  # Р’Р°Р¶РЅРѕ: РѕР±СЉРµРєС‚С‹ PC РґРѕР»Р¶РЅС‹ СЃСѓС‰РµСЃС‚РІРѕРІР°С‚СЊ РІ Р‘Р”
+    print("РЎРїРёСЃРѕРє РїРє: ", list(pcs))
     return render(request, 'booking/pc_list.html', {'pcs': pcs})
 
 def book_pc(request, pc_id):
-    pc = get_object_or_404(PC, id=pc_id)  # 404 если ПК не существует
+    pc = get_object_or_404(PC, id=pc_id)  # 404 РµСЃР»Рё РџРљ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
@@ -17,9 +19,9 @@ def book_pc(request, pc_id):
             booking.pc = pc
             booking.user = request.user
             booking.save()
-            return redirect('pc_list')  # Редирект после успеха
+            return redirect('pc_list')  # Р РµРґРёСЂРµРєС‚ РїРѕСЃР»Рµ СѓСЃРїРµС…Р°
     else:
-        form = BookingForm()  # Пустая форма для GET-запроса
+        form = BookingForm()  # РџСѓСЃС‚Р°СЏ С„РѕСЂРјР° РґР»СЏ GET-Р·Р°РїСЂРѕСЃР°
 
-    # Всегда возвращаем HttpResponse (даже для GET или невалидной формы)
+    # Р’СЃРµРіРґР° РІРѕР·РІСЂР°С‰Р°РµРј HttpResponse (РґР°Р¶Рµ РґР»СЏ GET РёР»Рё РЅРµРІР°Р»РёРґРЅРѕР№ С„РѕСЂРјС‹)
     return render(request, 'booking/book_pc.html', {'form': form, 'pc': pc})
