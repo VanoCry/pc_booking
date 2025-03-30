@@ -1,6 +1,6 @@
-<h1>Booking {{ pc.name }}</h1>
+<h1>Бронирование {{ pc.name }}</h1>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Booking</button>
+    <button type="submit">Забронировать</button>
 </form>

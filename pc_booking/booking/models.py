@@ -7,6 +7,7 @@ class PC(models.Model):
     name = models.CharField(max_length=100) # Например, PC-1
     is_active = models.BooleanField(default=True) # Работает ли ПК
     price = models.IntegerField(default=0)
+    description = models.TextField(blank=True)
     
     def __str__(self):
         return self.name

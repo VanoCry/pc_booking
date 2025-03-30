@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои брони</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+    <h1 class="mb-4">Мои брони</h1>
+    {% if bookings %}
+        <ul class="list-group">
+            {% for booking in bookings %}
+                <li class="list-group-item">
+                    <strong>{{ booking.pc.name }}</strong><br>
+                    {{ booking.start_time|date:"d.m.Y H:i"}} - {{ booking.end_time|date:"H:i"}}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-info">У вас пока нет броней.</div>
+    {% endif %}
+
+    <a href="/" class="btn btn-primary mt-3">На главную</a>
+</body>
+</html>

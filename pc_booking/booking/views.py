@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.decorators import login_required
 from .forms import BookingForm
-from .models import PC
+from .models import PC, Booking
+from django.urls import reverse_lazy
 
 
 
@@ -25,3 +27,8 @@ def book_pc(request, pc_id):
 
     # Всегда возвращаем HttpResponse (даже для GET или невалидной формы)
     return render(request, 'booking/book_pc.html', {'form': form, 'pc': pc})
+
+@login_required(login_url=reverse_lazy('login'))
+def my_bookings(request):
+    user_bookings = Booking.objects.filter(user=request.user).order_by('-start_time')
+    return render(request, 'booking/my_bookings.html', {'bookings' : user_bookings}) 

@@ -9,3 +9,6 @@ class BookingForm(forms.ModelForm):
             'start_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
+    def clean(self):
+        if self.cleaned_data['end_time'] <= self.cleaned_data['start_time']:
+            raise forms.ValidationError("Конец брони должен быть позже начала!")

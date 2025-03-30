@@ -1,9 +1,14 @@
-<h1>Available PC</h1>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<h1>Доступные ПК</h1>
 <ul>
     {% for pc in pcs %}
         <li>
             {{ pc.name }}
-            <a href="{% url 'book_pc' pc.id %}">Book</a>
+            <a href="{% url 'book_pc' pc.id %}" class="btn btn-primary mt-1">Бронь</a>
         </li>
     {% endfor %}
+    <div class="mb-4">
+        <a href="{% url 'my_bookings' %}" class="btn btn-outline-secondary">Мои брони</a>
+    </div>
 </ul>
