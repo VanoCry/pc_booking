@@ -1,14 +1,41 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+{% extends "base.html" %}
+{% load static %}
 
-<h1>Доступные ПК</h1>
-<ul>
-    {% for pc in pcs %}
-        <li>
-            {{ pc.name }}
-            <a href="{% url 'book_pc' pc.id %}" class="btn btn-primary mt-1">Бронь</a>
-        </li>
-    {% endfor %}
-    <div class="mb-4">
-        <a href="{% url 'my_bookings' %}" class="btn btn-outline-secondary">Мои брони</a>
+{% block title %}Доступные ПК{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">Доступные ПК</h1>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for pc in pcs %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ pc.name }}</h5>
+                    {% if pc.description %}
+                    <p class="card-text text-muted">{{ pc.description|truncatechars:100 }}</p>
+                    {% endif %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge bg-{% if pc.is_active %}success{% else %}danger{% endif %}">
+                            {% if pc.is_active %}Доступен{% else %}Занят{% endif %}
+                        </span>
+                        <a href="{% url 'book_pc' pc.id %}" class="btn btn-sm btn-primary">Бронировать</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">Нет доступных ПК</div>
+        </div>
+        {% endfor %}
     </div>
-</ul>
+
+    <div class="mt-4 text-center">
+        <a href="{% url 'my_bookings' %}" class="btn btn-outline-primary">
+            <i class="fas fa-calendar-alt me-2"></i>Мои бронирования
+        </a>
+    </div>
+</div>
+{% endblock %}

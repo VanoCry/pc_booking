@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import BookingForm
+from .forms import BookingForm, RegisterForm
 from .models import PC, Booking
 from django.urls import reverse_lazy
 
@@ -31,4 +31,15 @@ def book_pc(request, pc_id):
 @login_required(login_url=reverse_lazy('login'))
 def my_bookings(request):
     user_bookings = Booking.objects.filter(user=request.user).order_by('-start_time')
-    return render(request, 'booking/my_bookings.html', {'bookings' : user_bookings}) 
+    return render(request, 'booking/my_bookings.html', {'bookings' : user_bookings})
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('my_bookings') 
+    else:
+        form = RegisterForm()
+
+    return render(request, 'booking/register.html', {'form': form })
